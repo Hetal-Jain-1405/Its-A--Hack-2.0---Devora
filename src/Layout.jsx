@@ -28,17 +28,16 @@ export default function Layout() {
           <span className="text-xl font-bold text-blue-900 dark:text-blue-200">Clinical Precision</span>
           <p className="mt-1 text-[10px] uppercase tracking-widest text-slate-400">Medical Management</p>
         </div>
-        
+
         <nav className="flex-1 space-y-1">
           {navItems.map((item) => (
             <NavLink
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center space-x-3 px-6 py-3 font-sans text-sm tracking-tight transition-colors duration-200 ${
-                  isActive && item.path !== '#' && !item.path.startsWith('#')
-                    ? 'border-r-4 border-blue-700 bg-white font-bold text-blue-700'
-                    : 'font-medium text-slate-500 hover:bg-blue-50'
+                `flex items-center space-x-3 px-6 py-3 font-sans text-sm tracking-tight transition-colors duration-200 ${isActive && item.path !== '#' && !item.path.startsWith('#')
+                  ? 'border-r-4 border-blue-700 bg-white font-bold text-blue-700'
+                  : 'font-medium text-slate-500 hover:bg-blue-50'
                 }`
               }
             >
@@ -78,12 +77,12 @@ export default function Layout() {
         </div>
         <div className="flex items-center space-x-4">
           <div className="flex rounded-full bg-surface-container-high p-1">
-            <button 
+            <button
               onClick={() => handleModeSwitch('Simple')}
               className={`rounded-full px-4 py-1 text-xs transition-all ${isSimpleMode ? 'bg-white font-semibold text-primary shadow-sm' : 'font-medium text-slate-500 hover:text-slate-700'}`}>
               Simple
             </button>
-            <button 
+            <button
               onClick={() => handleModeSwitch('Technical')}
               className={`rounded-full px-4 py-1 text-xs transition-all ${!isSimpleMode ? 'bg-white font-semibold text-primary shadow-sm' : 'font-medium text-slate-500 hover:text-slate-700'}`}>
               Technical
