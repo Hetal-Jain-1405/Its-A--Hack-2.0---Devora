@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload Records | Clinical Precision</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1d",
+                        "secondary-fixed": "#8cf3f3",
+                        "secondary": "#006a6a",
+                        "on-secondary-container": "#007070",
+                        "inverse-primary": "#a9c7ff",
+                        "tertiary-fixed-dim": "#88d982",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#005312",
+                        "primary-container": "#005eb8",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-secondary-fixed": "#002020",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container-low": "#f3f4f5",
+                        "outline": "#727783",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9fa",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-tint": "#005db6",
+                        "surface-container-high": "#e7e8e9",
+                        "background": "#f8f9fa",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "surface-container": "#edeeef",
+                        "surface-bright": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "on-surface-variant": "#424752",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#001b3d",
+                        "tertiary": "#005412",
+                        "tertiary-container": "#1d6e25",
+                        "on-primary-container": "#c8daff",
+                        "on-background": "#191c1d",
+                        "surface-dim": "#d9dadb",
+                        "primary": "#00478d",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed": "#002204",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#8cf3f3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#9bee94",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#6fd7d6",
+                        "outline-variant": "#c2c6d4",
+                        "tertiary-fixed": "#a3f69c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .custom-dashed-border {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='%23C2C6D4FF' stroke-width='2' stroke-dasharray='12%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+            border-radius: 24px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-50 dark:bg-slate-900 flex flex-col py-6 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-bold text-blue-900 dark:text-blue-200">Clinical Precision</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1">Medical Management</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span>Timeline</span>
+</a>
+<!-- Active State: Documents / Actions -->
+<a class="flex items-center px-6 py-3 space-x-3 text-blue-700 font-bold border-r-4 border-blue-700 bg-white text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span>Actions</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span>Alerts</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span>Insights</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined">family_restroom</span>
+<span>Family</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pt-6 border-t border-slate-100">
+<a class="flex items-center space-x-3 text-slate-500 hover:text-blue-600 transition-colors" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-sm font-medium">Profile</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen relative flex flex-col bg-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-16 z-40 bg-white/80 backdrop-blur-md flex items-center justify-between px-8 w-full border-b border-slate-100">
+<div class="flex items-center bg-surface-container rounded-full px-4 py-1.5 w-96">
+<span class="material-symbols-outlined text-outline text-lg mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-outline" placeholder="Search patient records..." type="text"/>
+</div>
+<div class="flex items-center space-x-6">
+<div class="flex items-center space-x-2 text-primary font-semibold text-sm">
+<span class="material-symbols-outlined text-lg">verified_user</span>
+<span>HIPAA Secured</span>
+</div>
+<button class="text-slate-600 hover:text-blue-600 transition-all duration-300">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center space-x-3 pl-4 border-l border-slate-100">
+<span class="text-xs font-semibold text-right hidden lg:block">
+<p class="text-on-surface">Dr. Sarah Chen</p>
+<p class="text-on-surface-variant font-normal">Profile Settings</p>
+</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center">
+<img alt="User Avatar" class="w-full h-full rounded-full object-cover" data-alt="professional portrait of a female doctor in a white clinical coat looking confident and friendly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGyrvnWx1QYSjBe2HpcIvf5HyFSJCeIlATgXHzDFbdp82S2KlQqr_m_bkkfFVc1KU6BTY3y-tTqsvzZrN4OI6eqi1GikzGHb04FNvpH7Onmj4VqTgWhMGwaefWFB7Zzjk1qEWtGVpqBiZli8Ia9D40VVpdfByuC_LQKCcWBl8xfXttJyXb50YR-NrSLgVeaw3ejjINo40cftI_p179cc7Vc0bufgkCBLa-sXZMFL4cGKcjVDOQX_42hq7yU0mpcuVvweKF1NwgBw"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="mt-16 p-8 flex gap-8 h-[calc(100vh-64px)] overflow-hidden">
+<!-- Left Side: Drag & Drop Zone -->
+<section class="flex-1 flex flex-col gap-6 overflow-hidden">
+<div class="flex flex-col">
+<h2 class="text-3xl font-extrabold tracking-tight text-primary mb-1">Upload Records</h2>
+<p class="text-on-surface-variant">Add new diagnostic reports, lab results, or clinical notes for AI synthesis.</p>
+</div>
+<!-- Main Drop Area -->
+<div class="flex-1 custom-dashed-border bg-surface-container-lowest flex flex-col items-center justify-center p-12 transition-all hover:bg-white group cursor-pointer relative">
+<div class="flex flex-col items-center text-center max-w-md">
+<div class="w-20 h-20 bg-primary-fixed rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'wght' 600;">cloud_upload</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Drag &amp; Drop Patient Files</h3>
+<p class="text-on-surface-variant mb-8">Supported formats: DICOM, PDF, JPEG, and HL7. Files are automatically encrypted before processing.</p>
+<button class="bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-primary/20 flex items-center space-x-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+<span>Select Files</span>
+</button>
+</div>
+<!-- Ambient HIPAA Badge -->
+<div class="absolute bottom-6 flex items-center space-x-2 text-[10px] font-bold text-outline-variant uppercase tracking-widest">
+<span class="material-symbols-outlined text-xs">lock</span>
+<span>AES-256 Bit Encryption Active</span>
+</div>
+</div>
+<!-- Processing Queue (Visible when uploading) -->
+<div class="bg-surface-container-low rounded-xl p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<span class="font-bold text-sm">Processing 3 Records...</span>
+</div>
+<span class="text-xs font-bold text-primary">64% Overall</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container w-[64%] rounded-full"></div>
+</div>
+<div class="mt-4 space-y-3">
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center space-x-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+<span>Lab_Results_Oct2023.pdf</span>
+</div>
+<span class="text-tertiary font-bold flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">check_circle</span>
+                                Extracted
+                            </span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center space-x-2 text-on-surface">
+<span class="material-symbols-outlined text-sm animate-pulse">image</span>
+<span>MRI_Scan_Lumbar_L4.dcm</span>
+</div>
+<span class="text-primary font-bold">Scanning...</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: AI Extraction Results -->
+<aside class="w-[400px] bg-white rounded-3xl shadow-2xl shadow-slate-200/50 flex flex-col border border-slate-50 overflow-hidden">
+<div class="p-6 bg-gradient-to-br from-primary to-primary-container text-white">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-bold text-lg">AI Extraction Results</h3>
+</div>
+<span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Real-time</span>
+</div>
+<div class="bg-white/10 rounded-xl p-4 border border-white/10">
+<p class="text-xs text-on-primary-container leading-relaxed">AI is currently synthesizing data from uploaded documents to populate patient history.</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- Disease Information -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-xs font-extrabold uppercase tracking-widest text-outline">Detected Conditions</h4>
+<span class="text-[10px] text-primary underline cursor-pointer">Verify All</span>
+</div>
+<div class="space-y-3">
+<div class="bg-surface-container-low p-4 rounded-2xl transition-all hover:bg-surface-container">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold text-on-surface">Type 2 Diabetes Mellitus</span>
+<span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-0.5 rounded-md">Critical</span>
+</div>
+<p class="text-xs text-on-surface-variant">Mentioned in: Lab_Results_Oct2023 (HbA1c: 8.2%)</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-2xl transition-all hover:bg-surface-container">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold text-on-surface">Hyperlipidemia</span>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded-md">Chronic</span>
+</div>
+<p class="text-xs text-on-surface-variant">Detected via history cross-reference</p>
+</div>
+</div>
+</section>
+<!-- Medicines -->
+<section>
+<h4 class="text-xs font-extrabold uppercase tracking-widest text-outline mb-4">Extracted Medications</h4>
+<div class="space-y-2">
+<div class="flex items-center p-3 bg-surface rounded-xl border border-outline-variant/30">
+<div class="w-10 h-10 bg-secondary-fixed rounded-lg flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-secondary">medication</span>
+</div>
+<div>
+<p class="text-sm font-bold">Metformin 500mg</p>
+<p class="text-[11px] text-on-surface-variant">BID • Oral</p>
+</div>
+</div>
+<div class="flex items-center p-3 bg-surface rounded-xl border border-outline-variant/30">
+<div class="w-10 h-10 bg-tertiary-fixed rounded-lg flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-tertiary">pill</span>
+</div>
+<div>
+<p class="text-sm font-bold">Atorvastatin 20mg</p>
+<p class="text-[11px] text-on-surface-variant">Daily • Nightly</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Tests/Metrics -->
+<section>
+<h4 class="text-xs font-extrabold uppercase tracking-widest text-outline mb-4">Clinical Observations</h4>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container-low p-3 rounded-2xl">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase">Glucose</p>
+<p class="text-xl font-bold text-primary">142 <span class="text-xs font-medium">mg/dL</span></p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-2xl">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase">BMI</p>
+<p class="text-xl font-bold text-secondary">28.4 <span class="text-xs font-medium">kg/m²</span></p>
+</div>
+</div>
+</section>
+</div>
+<div class="p-6 border-t border-slate-100 bg-surface-container-lowest">
+<button class="w-full py-4 bg-primary text-white rounded-full font-bold flex items-center justify-center space-x-2 group">
+<span>Commit to Patient History</span>
+<span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<p class="text-[10px] text-center text-outline mt-3">Confirming will sync data with HL7/FHIR nodes.</p>
+</div>
+</aside>
+</div>
+<!-- Sticky Status Footer (HIPAA) -->
+<footer class="h-10 bg-slate-900 flex items-center justify-between px-8 text-[10px] text-slate-400 font-medium">
+<div class="flex items-center space-x-4">
+<span class="flex items-center text-tertiary">
+<span class="w-2 h-2 rounded-full bg-tertiary mr-2"></span>
+                    System Online
+                </span>
+<span>Session ID: CPC-882-991</span>
+<span>Uptime: 99.99%</span>
+</div>
+<div class="flex items-center space-x-4">
+<span class="flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-1">security</span>
+                    End-to-End Encrypted
+                </span>
+<span>GDPR &amp; HIPAA Compliant</span>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB (Hidden on this transactional screen as per rules, but prepared for main ecosystem) -->
+<!-- Suppression Logic: Suppressed as this is a focused Task-Focused/Transactional screen -->
+</body></html>

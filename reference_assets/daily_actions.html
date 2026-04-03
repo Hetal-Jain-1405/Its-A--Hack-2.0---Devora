@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1d",
+                    "secondary-fixed": "#8cf3f3",
+                    "secondary": "#006a6a",
+                    "on-secondary-container": "#007070",
+                    "inverse-primary": "#a9c7ff",
+                    "tertiary-fixed-dim": "#88d982",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "primary-container": "#005eb8",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "on-secondary-fixed": "#002020",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-low": "#f3f4f5",
+                    "outline": "#727783",
+                    "on-primary-fixed-variant": "#00468c",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface": "#f8f9fa",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-tint": "#005db6",
+                    "surface-container-high": "#e7e8e9",
+                    "background": "#f8f9fa",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "surface-container": "#edeeef",
+                    "surface-bright": "#f8f9fa",
+                    "surface-variant": "#e1e3e4",
+                    "on-surface-variant": "#424752",
+                    "primary-fixed": "#d6e3ff",
+                    "on-primary-fixed": "#001b3d",
+                    "tertiary": "#005412",
+                    "tertiary-container": "#1d6e25",
+                    "on-primary-container": "#c8daff",
+                    "on-background": "#191c1d",
+                    "surface-dim": "#d9dadb",
+                    "primary": "#00478d",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-fixed": "#002204",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#8cf3f3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#9bee94",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#6fd7d6",
+                    "outline-variant": "#c2c6d4",
+                    "tertiary-fixed": "#a3f69c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e1e3e4; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-hidden">
+<!-- SideNavBar Anchor -->
+<aside class="bg-slate-50 dark:bg-slate-900 h-screen w-64 fixed left-0 top-0 flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-8">
+<h2 class="text-xl font-bold text-blue-900 dark:text-blue-200">Clinical Precision</h2>
+<p class="text-xs text-slate-500 font-sans tracking-tight">Medical Management</p>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<a class="flex items-center px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="timeline">timeline</span>
+                Timeline
+            </a>
+<!-- Active Tab: Actions -->
+<a class="flex items-center px-3 py-2.5 text-blue-700 dark:text-blue-400 font-bold border-r-4 border-blue-700 dark:border-blue-400 bg-white dark:bg-slate-950 transition-colors duration-200 rounded-l-xl font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="task_alt">task_alt</span>
+                Actions
+            </a>
+<a class="flex items-center px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="notifications_active">notifications_active</span>
+                Alerts
+            </a>
+<a class="flex items-center px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="description">description</span>
+                Documents
+            </a>
+<a class="flex items-center px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="insights">insights</span>
+                Insights
+            </a>
+<a class="flex items-center px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="family_restroom">family_restroom</span>
+                Family
+            </a>
+<a class="flex items-center px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="account_circle">account_circle</span>
+                Profile
+            </a>
+</nav>
+<div class="px-6 py-4 mt-auto">
+<div class="flex items-center space-x-3 p-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm">
+<img alt="Clinic Logo" class="w-8 h-8 rounded-full bg-primary-container object-cover" data-alt="professional portrait of a healthcare administrator in a bright modern clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs_gJfG4W8PmSC8IFdVmI-9E_Ogto6l1nf6Fk9JxkUSZS_kPPRBDImykzqe1WULs5v53gFRY48fzCpd-gM9Qaf1NZjhG5rf_XJRwJAPCMoECzanLg6MJktUrJ7-gWbyFKWRgoOdlYyA8ii8Sob0oU7XWAEtHqXlY5ujCFTJ7cMlfGsc8yR_b1quyyCxjFghuIKK-7AkQWwiXkOqS-0KkOiAOmxbtrCefbP135Lpdvfs0JtcZFxoW96OX-v3uvu77pFWtY6HJdsQw"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Dr. Sarah Chen</p>
+<p class="text-[10px] text-slate-500 truncate">Senior Pathologist</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar Anchor -->
+<header class="bg-white/80 dark:bg-slate-950/80 backdrop-blur-md fixed top-0 right-0 left-64 h-16 z-40 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-8 w-full">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 transition-all duration-300" placeholder="Search tasks or patients..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-6">
+<button class="relative text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 pl-6 border-l border-slate-100 dark:border-slate-800">
+<span class="text-sm font-medium text-slate-600 dark:text-slate-400">Profile Settings</span>
+<img alt="User Avatar" class="w-8 h-8 rounded-full" data-alt="close-up headshot of a female doctor with a stethoscope around her neck, warm professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqWN86rsXPDzrmxirQEos6SCEBFMUlznUK_Lhgekk6vCB7FI6gmfYIWbZfcpe3OOYIjrb9wFJ0hDzsHnfQ0gtD6-mara97ZOSN8UxjvGBL3bKrWuCk2n0kZS-IZAXliM4tGAfT0fsNG9mg531ibhi6xK_zCpj-6JyUP6TIzGZTR5G1f7Ng0E-UWWQC7pRhI88QFNlwq3-aUz6U424QycxRm1aGNHH2deNDSlpLa7Fqy3nH8e2uZ-lW3HdlzPp1Fr58Vr6kCv4X5A"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 pt-16 h-screen flex flex-col overflow-hidden">
+<!-- Header Section -->
+<section class="px-10 py-8">
+<div class="flex items-end justify-between mb-8">
+<div>
+<p class="text-on-surface-variant text-sm font-medium mb-1">Thursday, October 24</p>
+<h1 class="text-3xl font-extrabold tracking-tight text-primary">Daily Actions</h1>
+</div>
+<!-- Filter Tabs -->
+<div class="flex bg-surface-container-low p-1 rounded-full space-x-1">
+<button class="px-6 py-2 rounded-full text-sm font-semibold bg-white shadow-sm text-primary transition-all">Today</button>
+<button class="px-6 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:text-on-surface transition-all">Upcoming</button>
+<button class="px-6 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:text-on-surface transition-all">Missed</button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-8 h-full">
+<!-- Main Task Column -->
+<div class="col-span-8 space-y-6 overflow-y-auto custom-scrollbar pr-4 pb-20" style="max-height: calc(100vh - 250px);">
+<!-- Time Slot Group -->
+<div class="space-y-4">
+<div class="flex items-center space-x-4">
+<span class="text-xs font-bold text-primary-container bg-primary-fixed px-3 py-1 rounded-full uppercase tracking-widest">Morning Focus</span>
+<div class="flex-1 h-px bg-surface-container-highest"></div>
+</div>
+<!-- Task Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.01] flex items-start gap-4">
+<div class="mt-1">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg text-on-surface">Patient Round: Ward 4C</h3>
+<span class="flex items-center text-xs font-semibold text-secondary bg-secondary-container px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="schedule">schedule</span>
+                                        09:00 AM
+                                    </span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed">Review post-op recovery metrics for Mr. Henderson and update medication charts.</p>
+<div class="flex items-center gap-3">
+<a class="flex items-center text-xs font-medium text-primary hover:underline" href="#">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="description">description</span>
+                                        Patient_Chart_v4.pdf
+                                    </a>
+<span class="text-outline-variant text-xs">•</span>
+<a class="flex items-center text-xs font-medium text-primary hover:underline" href="#">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="link">link</span>
+                                        Vital Signs Lab
+                                    </a>
+</div>
+</div>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.01] flex items-start gap-4 border-l-4 border-error">
+<div class="mt-1">
+<input class="w-5 h-5 rounded-md border-outline-variant text-error focus:ring-error/20" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg text-on-surface">Emergency Lab Review</h3>
+<span class="flex items-center text-xs font-semibold text-on-error-container bg-error-container px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="priority_high">priority_high</span>
+                                        OVERDUE
+                                    </span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed">Urgent pathology results for Room 202 - Cardiac Unit. Needs immediate sign-off.</p>
+<div class="flex items-center gap-3">
+<a class="flex items-center text-xs font-medium text-primary hover:underline" href="#">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="lab_research">lab_research</span>
+                                        Path_Report_Urgent.doc
+                                    </a>
+</div>
+</div>
+</div>
+</div>
+<!-- Afternoon Slot Group -->
+<div class="space-y-4 pt-4">
+<div class="flex items-center space-x-4">
+<span class="text-xs font-bold text-on-secondary-fixed-variant bg-secondary-fixed px-3 py-1 rounded-full uppercase tracking-widest">Midday Review</span>
+<div class="flex-1 h-px bg-surface-container-highest"></div>
+</div>
+<!-- Task Card 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.01] flex items-start gap-4 opacity-70">
+<div class="mt-1">
+<input checked="" class="w-5 h-5 rounded-md border-outline-variant text-tertiary focus:ring-tertiary/20" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg text-on-surface line-through">Consultation: Mrs. Gable</h3>
+<span class="flex items-center text-xs font-semibold text-tertiary bg-tertiary-fixed px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="check_circle">check_circle</span>
+                                        COMPLETED
+                                    </span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed">Follow-up on diabetic neuropathy progression. Patient shows positive response to new regimen.</p>
+</div>
+</div>
+<!-- Task Card 4 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.01] flex items-start gap-4">
+<div class="mt-1">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg text-on-surface">Department Briefing</h3>
+<span class="flex items-center text-xs font-semibold text-on-surface-variant bg-surface-container px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="schedule">schedule</span>
+                                        02:00 PM
+                                    </span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed">Bi-weekly alignment on diagnostic caseloads and new protocol implementation.</p>
+<div class="flex items-center gap-3">
+<a class="flex items-center text-xs font-medium text-primary hover:underline" href="#">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="calendar_today">calendar_today</span>
+                                        Meeting_Invite.ics
+                                    </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Analytics -->
+<div class="col-span-4 space-y-8">
+<!-- Health Streak Visualization -->
+<div class="bg-primary p-6 rounded-[2rem] text-white overflow-hidden relative">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-lg font-bold">Health Streak</h3>
+<p class="text-on-primary-container text-xs">High performance week</p>
+</div>
+<div class="bg-white/20 p-2 rounded-xl backdrop-blur-md">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+</div>
+<div class="flex items-center justify-between gap-2 mb-8">
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-20 bg-white/10 rounded-full flex items-end overflow-hidden">
+<div class="w-full bg-secondary-fixed h-[80%] rounded-full"></div>
+</div>
+<span class="text-[10px] font-bold opacity-70">M</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-20 bg-white/10 rounded-full flex items-end overflow-hidden">
+<div class="w-full bg-secondary-fixed h-[60%] rounded-full"></div>
+</div>
+<span class="text-[10px] font-bold opacity-70">T</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-20 bg-white/10 rounded-full flex items-end overflow-hidden">
+<div class="w-full bg-secondary-fixed h-[95%] rounded-full"></div>
+</div>
+<span class="text-[10px] font-bold opacity-70">W</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-20 bg-white/20 rounded-full flex items-end overflow-hidden border-2 border-white/30">
+<div class="w-full bg-white h-[45%] rounded-full"></div>
+</div>
+<span class="text-[10px] font-bold">T</span>
+</div>
+<div class="flex flex-col items-center gap-2 opacity-40">
+<div class="w-8 h-20 bg-white/10 rounded-full flex items-end overflow-hidden">
+<div class="w-full bg-white h-0 rounded-full"></div>
+</div>
+<span class="text-[10px] font-bold">F</span>
+</div>
+</div>
+<div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-3xl font-extrabold tracking-tight">12</p>
+<p class="text-[10px] font-medium uppercase tracking-widest text-on-primary-container">Day Streak</p>
+</div>
+<button class="bg-white text-primary px-4 py-2 rounded-full text-xs font-bold shadow-lg">View Stats</button>
+</div>
+</div>
+</div>
+<!-- Decorative Abstract Background -->
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+<div class="absolute -top-10 -left-10 w-32 h-32 bg-primary-container/30 rounded-full blur-3xl"></div>
+</div>
+<!-- Upcoming Alerts / Calendar Card -->
+<div class="bg-surface-container-low p-6 rounded-[2rem] border border-white">
+<h3 class="font-bold text-on-surface mb-4">Priority Summary</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-lg" data-icon="error">error</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">3 Critical Actions</p>
+<p class="text-[10px] text-on-surface-variant">Requires attention before EOD</p>
+</div>
+<span class="material-symbols-outlined text-slate-300" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="schedule_send">schedule_send</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">5 Pending Sign-offs</p>
+<p class="text-[10px] text-on-surface-variant">Awaiting clinical approval</p>
+</div>
+<span class="material-symbols-outlined text-slate-300" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-lg" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Personal Wellness</p>
+<p class="text-[10px] text-on-surface-variant">Recommended 15min break</p>
+</div>
+<span class="material-symbols-outlined text-slate-300" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<div class="mt-8 p-4 bg-primary-fixed/30 rounded-2xl border border-primary-fixed/50">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="info">info</span>
+<p class="text-xs font-bold text-on-primary-fixed-variant">System Intelligence</p>
+</div>
+<p class="text-[10px] text-on-primary-fixed-variant/80 leading-relaxed">Based on your current pace, you'll complete all tasks 20 minutes earlier than yesterday. Keep it up!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB Suppression: Not rendering on focused task management view per protocol -->
+</body></html>

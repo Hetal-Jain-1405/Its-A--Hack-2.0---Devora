@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#6fd7d6",
+                    "surface-variant": "#e1e3e4",
+                    "on-primary-fixed": "#001b3d",
+                    "on-primary-container": "#c8daff",
+                    "primary-container": "#005eb8",
+                    "surface-container": "#edeeef",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "secondary-fixed": "#8cf3f3",
+                    "outline": "#727783",
+                    "background": "#f8f9fa",
+                    "surface-dim": "#d9dadb",
+                    "tertiary-fixed-dim": "#88d982",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#007070",
+                    "on-background": "#191c1d",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-surface-variant": "#424752",
+                    "on-primary": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "on-secondary-fixed": "#002020",
+                    "inverse-surface": "#2e3132",
+                    "primary-fixed": "#d6e3ff",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#005db6",
+                    "on-tertiary-container": "#9bee94",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#005412",
+                    "surface-bright": "#f8f9fa",
+                    "secondary-container": "#8cf3f3",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#a3f69c",
+                    "surface-container-high": "#e7e8e9",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#1d6e25",
+                    "outline-variant": "#c2c6d4",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "surface-container-low": "#f3f4f5",
+                    "on-tertiary-fixed": "#002204",
+                    "secondary": "#006a6a",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "inverse-primary": "#a9c7ff",
+                    "primary": "#00478d",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-primary-fixed-variant": "#00468c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition { transition: background-color 0.3s ease; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User Profile Picture" class="w-full h-full object-cover" data-alt="close up professional portrait of a woman with soft lighting and a neutral blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2K_NdEeRaZZX3PRJP2sJ0pMYrzR0C8iebDkTWxcrIcs14JNzTN2L4sVRFy3s4ItkvCxHVEUCb1NWITGKo0shmJjoUkua4Sp9PpO_xTd0L4vzqyGnXEFzwWtwxaUd9CRCsluzMVBiS07N-DbtXeRMnF87blRugqoft49lavgoChUdCXkuuPkMWC9v_qhhqRIrYi6726LfPSZI9nIT9aGWkuR1Ew1mqMUjN-4i4eVbHYSSa-_2J8Oga-DEx6uvGSTWau7pnwrsDtQ"/>
+</div>
+<h1 class="text-lg font-bold text-blue-900 dark:text-blue-100 font-headline tracking-tight">Dashboard</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-500 hover:opacity-80 transition-opacity">notifications</button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-5xl mx-auto">
+<!-- Asymmetric Header Section -->
+<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-xl">
+<h2 class="text-4xl font-extrabold font-headline text-primary tracking-tight mb-2">Family &amp; Caregivers</h2>
+<p class="text-on-surface-variant text-lg">Manage access for your inner circle and healthcare professionals.</p>
+</div>
+<div class="bg-secondary-container/30 px-6 py-4 rounded-xl flex items-center gap-4 border border-outline-variant/10">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">security</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-secondary font-label">Security Status</p>
+<p class="text-sm font-semibold text-on-secondary-fixed-variant">Encrypted Access Active</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Member List (Bento-style layout) -->
+<div class="lg:col-span-8 space-y-8">
+<section>
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold font-headline">Family Members List</h3>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-xs font-bold text-on-surface-variant">2 ACTIVE</span>
+</div>
+<div class="space-y-4">
+<!-- Sarah Johnson Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:bg-white hover:shadow-sm">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-2xl overflow-hidden shadow-inner">
+<img class="w-full h-full object-cover" data-alt="portrait of a smiling woman in her 30s with warm morning sunlight and a cozy home interior background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNCy__V2ezR53_kgGdRog4sQ6AMXuQmKC4Ee7obpSSjhBJWkr06vSNgrN9cZMc7kIien6wtXRhh9OMLuef88SUMhw5SliQGCy__la7u0JwPa8yDGFq7yZoG_pmbMZBiXumG7zLD-l0aglJ6_4eeUQbJ7P-zm4rJzRTmdqjg_-O44Umn9u9ojmqgVWm4ht3-KXri2vyIuy9F0yDGL2xXM8FxX-bDwevcO5RM6GS5eijJEwW0SrgACvmo7fanhecDi_bkVeF93Hp9A"/>
+</div>
+<div>
+<h4 class="text-lg font-bold text-on-surface">Sarah Johnson</h4>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="text-sm">Daughter</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-sm font-medium text-primary">Role: Caregiver</span>
+</div>
+</div>
+</div>
+<div class="flex flex-row md:flex-col items-center md:items-end justify-between gap-2">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant text-xs font-bold rounded-md">Access: Full Access</span>
+<button class="text-sm text-outline hover:text-primary transition-colors flex items-center gap-1">
+                                    Manage Permissions <span class="material-symbols-outlined text-sm">settings</span>
+</button>
+</div>
+</div>
+<!-- Michael Smith Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:bg-white hover:shadow-sm">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-2xl overflow-hidden shadow-inner">
+<img class="w-full h-full object-cover" data-alt="middle-aged male doctor in professional attire smiling in a bright clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnutNQXSPdMgsvlxJEOCDn3y2jGq_evAtxC50-lvAoYSDJ4bzAStrv9wNnTBSWvpju1oPCmuEiNY0NkIPwjBBktnEt5qvm7woLWaoFDqSsQ0HWVYR8oQinzH23Ef5g2jJNLPk73iauowVLDgy4Q63ddSGERYuN3bgKsA8MbZGEBLmp2ww3bU_LcK2tJkbLxzksCPHPZfTVm2D2g3-62NiyLu5MMh0jLP9gEmupges0UQp2BdVseCOxlKyhf0z0moRA6ZIorrwwIA"/>
+</div>
+<div>
+<h4 class="text-lg font-bold text-on-surface">Michael Smith</h4>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="text-sm">Doctor</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-sm font-medium text-secondary">Role: Viewer</span>
+</div>
+</div>
+</div>
+<div class="flex flex-row md:flex-col items-center md:items-end justify-between gap-2">
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-xs font-bold rounded-md">Access: View Only</span>
+<button class="text-sm text-outline hover:text-primary transition-colors flex items-center gap-1">
+                                    Manage Permissions <span class="material-symbols-outlined text-sm">settings</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Emergency Access Section (Tonal Transition) -->
+<section class="bg-error-container/20 rounded-2xl p-8 border border-error-container/30">
+<div class="flex items-start gap-6">
+<div class="bg-error-container p-4 rounded-2xl text-on-error-container">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">emergency_home</span>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-bold font-headline text-on-error-container mb-2">Emergency Access</h3>
+<p class="text-on-surface-variant mb-6 leading-relaxed">Secure emergency bypass for first responders. If active, designated members receive a temporary code to access critical vitals instantly.</p>
+<div class="flex flex-wrap items-center gap-6">
+<button class="bg-gradient-to-r from-error to-[#d32f2f] text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-error/20 hover:scale-105 transition-transform">
+                                    Request OTP for Emergency
+                                </button>
+<div class="flex items-center gap-2 text-on-surface-variant bg-white px-4 py-2 rounded-full border border-outline-variant/20">
+<span class="w-2 h-2 rounded-full bg-slate-300"></span>
+<span class="text-sm font-medium">Status Indicator: No Active Emergency Sessions</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Add Member (Interactive Sidebar) -->
+<aside class="lg:col-span-4">
+<div class="bg-surface-container-low rounded-3xl p-8 sticky top-28">
+<h3 class="text-2xl font-bold font-headline mb-8">Add Member</h3>
+<form class="space-y-6">
+<div>
+<label class="block text-sm font-bold font-label text-on-surface-variant mb-2 ml-1">Member Contact</label>
+<div class="bg-surface-container-highest rounded-xl p-4 flex items-center gap-3 border-b-2 border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-outline">alternate_email</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-medium text-on-surface placeholder:text-outline" placeholder="Email / Phone" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-bold font-label text-on-surface-variant mb-4 ml-1">Role Selection</label>
+<div class="grid grid-cols-1 gap-3">
+<label class="cursor-pointer group">
+<input checked="" class="hidden peer" name="role" type="radio" value="caregiver"/>
+<div class="flex items-center justify-between p-4 rounded-xl border border-outline-variant/30 bg-white group-hover:bg-primary-fixed/30 peer-checked:bg-primary peer-checked:text-white transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-bold">Caregiver</span>
+</div>
+<span class="material-symbols-outlined text-sm opacity-0 peer-checked:opacity-100">check_circle</span>
+</div>
+</label>
+<label class="cursor-pointer group">
+<input class="hidden peer" name="role" type="radio" value="viewer"/>
+<div class="flex items-center justify-between p-4 rounded-xl border border-outline-variant/30 bg-white group-hover:bg-primary-fixed/30 peer-checked:bg-primary peer-checked:text-white transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">visibility</span>
+<span class="font-bold">Viewer</span>
+</div>
+<span class="material-symbols-outlined text-sm opacity-0 peer-checked:opacity-100">check_circle</span>
+</div>
+</label>
+<label class="cursor-pointer group">
+<input class="hidden peer" name="role" type="radio" value="emergency"/>
+<div class="flex items-center justify-between p-4 rounded-xl border border-outline-variant/30 bg-white group-hover:bg-primary-fixed/30 peer-checked:bg-primary peer-checked:text-white transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-bold">Emergency</span>
+</div>
+<span class="material-symbols-outlined text-sm opacity-0 peer-checked:opacity-100">check_circle</span>
+</div>
+</label>
+</div>
+</div>
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-4 rounded-full font-extrabold shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all" type="submit">
+                            Invite Button
+                        </button>
+<p class="text-xs text-center text-on-surface-variant font-medium px-4">
+                            New members will receive an invitation link to verify their identity and accept the role.
+                        </p>
+</form>
+</div>
+</aside>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Shell Only, responsive classes) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl rounded-t-3xl border-t border-slate-200/20 shadow-[0_-8px_24px_rgba(25,28,29,0.04)] flex justify-around items-center w-full px-4 pb-6 pt-3">
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1 hover:text-blue-600 dark:hover:text-blue-300 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-inter text-[10px] font-semibold uppercase tracking-wider mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1 hover:text-blue-600 dark:hover:text-blue-300 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span class="font-inter text-[10px] font-semibold uppercase tracking-wider mt-1">Timeline</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1 hover:text-blue-600 dark:hover:text-blue-300 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-inter text-[10px] font-semibold uppercase tracking-wider mt-1">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-2xl px-4 py-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-inter text-[10px] font-semibold uppercase tracking-wider mt-1">Profile</span>
+</a>
+</nav>
+<!-- Web Navigation (Top Header Links for larger screens) -->
+<nav class="hidden md:flex fixed top-0 right-0 h-16 items-center px-10 z-[60] gap-8">
+<a class="text-slate-500 font-semibold text-sm hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-slate-500 font-semibold text-sm hover:text-primary transition-colors" href="#">Timeline</a>
+<a class="text-slate-500 font-semibold text-sm hover:text-primary transition-colors" href="#">Alerts</a>
+<a class="text-blue-700 font-bold text-sm bg-blue-50 px-4 py-2 rounded-lg" href="#">Profile</a>
+</nav>
+</body></html>

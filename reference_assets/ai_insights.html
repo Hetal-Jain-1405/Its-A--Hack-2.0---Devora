@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Insights | Clinical Precision</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#191c1d",
+                      "secondary-fixed": "#8cf3f3",
+                      "secondary": "#006a6a",
+                      "on-secondary-container": "#007070",
+                      "inverse-primary": "#a9c7ff",
+                      "tertiary-fixed-dim": "#88d982",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed-variant": "#005312",
+                      "primary-container": "#005eb8",
+                      "primary-fixed-dim": "#a9c7ff",
+                      "on-secondary-fixed": "#002020",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-container-low": "#f3f4f5",
+                      "outline": "#727783",
+                      "on-primary-fixed-variant": "#00468c",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "surface": "#f8f9fa",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-tint": "#005db6",
+                      "surface-container-high": "#e7e8e9",
+                      "background": "#f8f9fa",
+                      "on-secondary-fixed-variant": "#004f4f",
+                      "surface-container": "#edeeef",
+                      "surface-bright": "#f8f9fa",
+                      "surface-variant": "#e1e3e4",
+                      "on-surface-variant": "#424752",
+                      "primary-fixed": "#d6e3ff",
+                      "on-primary-fixed": "#001b3d",
+                      "tertiary": "#005412",
+                      "tertiary-container": "#1d6e25",
+                      "on-primary-container": "#c8daff",
+                      "on-background": "#191c1d",
+                      "surface-dim": "#d9dadb",
+                      "primary": "#00478d",
+                      "inverse-surface": "#2e3132",
+                      "on-tertiary-fixed": "#002204",
+                      "on-error": "#ffffff",
+                      "secondary-container": "#8cf3f3",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-container": "#9bee94",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#6fd7d6",
+                      "outline-variant": "#c2c6d4",
+                      "tertiary-fixed": "#a3f69c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col py-6 bg-slate-50 dark:bg-slate-900 z-50">
+<div class="px-6 mb-8">
+<span class="text-xl font-bold text-blue-900 dark:text-blue-200">Clinical Precision</span>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 mt-1">Medical Management</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="timeline">timeline</span>
+<span>Timeline</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+<span>Actions</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span>Alerts</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-blue-700 font-bold border-r-4 border-blue-700 bg-white font-sans text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span>Insights</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="family_restroom">family_restroom</span>
+<span>Family</span>
+</a>
+<a class="flex items-center px-6 py-3 space-x-3 text-slate-500 hover:bg-blue-50 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span>Profile</span>
+</a>
+</nav>
+<div class="px-6 pt-6 mt-6 border-t border-slate-100">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close up of a professional male doctor in a white coat with a friendly expression and glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_Srtjr_03bIKw2LKbZYE76s_0JOPkm1OWPXwegzhfoucnD0F7Ddum_9SpNjll8pwTKb3Y2ZE-5Nx1q1Dr19WSrdSkOs8IQAfrKXvdGZZgJ3f5x9Oh9pugDe_TXoA-Ba1gV5dW_TDmy_WoXx2lQ5Vhz2bNS3tugsl05T3Ffn953VEVP9bJkmH6Hfv7xNzHmFXOKMr5nL0GxiqCZO5EuqQVQJZarC5ZBvlev7-nsWzlzChO_63CGQNQQfGyD-LY0Qpcc-ZGG5QZaQ"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900">Dr. Aris Thorne</span>
+<span class="text-xs text-slate-500">Hematology</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-64 h-16 z-40 bg-white/80 backdrop-blur-md flex items-center justify-between px-8 w-full border-b border-slate-100">
+<div class="flex items-center space-x-6 flex-1">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search patient data..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex bg-surface-container-high p-1 rounded-full">
+<button class="px-4 py-1 text-xs font-semibold rounded-full bg-white shadow-sm text-primary transition-all">Simple</button>
+<button class="px-4 py-1 text-xs font-medium text-slate-500 hover:text-slate-700 transition-all">Technical</button>
+</div>
+<button class="p-2 text-slate-600 hover:bg-slate-50 rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+<button class="text-sm font-medium text-primary hover:underline">Profile Settings</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen bg-surface">
+<div class="max-w-[1600px] mx-auto p-10">
+<!-- Page Header -->
+<div class="flex items-end justify-between mb-12">
+<div>
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">AI Insights &amp; Analytics</h1>
+<p class="text-on-surface-variant text-lg">Comprehensive health synthesis for <span class="font-bold text-primary">Patient #4829-X</span></p>
+</div>
+<div class="flex space-x-3">
+<button class="flex items-center space-x-2 px-6 py-2.5 bg-primary-fixed text-on-primary-fixed-variant rounded-full font-semibold text-sm transition-all hover:opacity-90">
+<span class="material-symbols-outlined text-lg" data-icon="ios_share">ios_share</span>
+<span>Export Report</span>
+</button>
+<button class="flex items-center space-x-2 px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container text-white rounded-full font-semibold text-sm transition-all hover:scale-[1.02] shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-lg" data-icon="refresh">refresh</span>
+<span>Re-analyze</span>
+</button>
+</div>
+</div>
+<!-- Split Screen Layout -->
+<div class="grid grid-cols-12 gap-10">
+<!-- Left Column: Report Summary & Risk Indicators -->
+<div class="col-span-12 lg:col-span-5 space-y-10">
+<!-- AI Executive Summary Card -->
+<section class="bg-surface-container-lowest rounded-[2rem] p-8 shadow-sm border-l-4 border-primary">
+<div class="flex items-center space-x-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h2 class="text-xl font-bold">Executive Summary</h2>
+</div>
+<p class="text-on-surface-variant leading-relaxed mb-6">
+                            Current analysis indicates a steady recovery trajectory. Most vital parameters have stabilized over the last 48 hours. Primary focus remains on <span class="text-on-surface font-semibold">Iron Metabolism</span> and <span class="text-on-surface font-semibold">Erythrocyte Stability</span>. Neurological markers show no signs of concern.
+                        </p>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-2xl">
+<span class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Primary Finding</span>
+<p class="text-sm font-semibold mt-1">Normocytic Anemia</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-2xl">
+<span class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Confidence Score</span>
+<p class="text-sm font-semibold mt-1 text-secondary">98.4% Match</p>
+</div>
+</div>
+</section>
+<!-- Risk Indicators (Asymmetric Layout) -->
+<section class="space-y-6">
+<h2 class="text-xl font-bold px-2">Risk Risk Profile</h2>
+<div class="grid grid-cols-2 gap-6">
+<!-- Card 1 -->
+<div class="bg-error-container p-6 rounded-[2rem] flex flex-col justify-between h-48">
+<span class="material-symbols-outlined text-on-error-container text-3xl" data-icon="warning">warning</span>
+<div>
+<p class="text-3xl font-extrabold text-on-error-container">Critical</p>
+<p class="text-sm font-medium text-on-error-container opacity-80">Acute Inflammation Risk</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-secondary-container p-6 rounded-[2rem] flex flex-col justify-between h-48">
+<span class="material-symbols-outlined text-on-secondary-container text-3xl" data-icon="trending_down" style="font-variation-settings: 'FILL' 1;">trending_down</span>
+<div>
+<p class="text-3xl font-extrabold text-on-secondary-container">Decreasing</p>
+<p class="text-sm font-medium text-on-secondary-container opacity-80">Post-Op Complication Risk</p>
+</div>
+</div>
+<!-- Card 3 (Wide) -->
+<div class="col-span-2 bg-surface-container-lowest p-8 rounded-[2rem] flex items-center justify-between border border-outline-variant/10">
+<div>
+<h3 class="text-sm font-bold text-on-surface-variant uppercase mb-4 tracking-widest">Metabolic Stability</h3>
+<div class="flex items-center space-x-2">
+<div class="h-3 w-32 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full w-3/4 bg-tertiary"></div>
+</div>
+<span class="text-lg font-bold">Stable</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-3xl font-black text-primary">82</span>
+<span class="text-sm text-on-surface-variant ml-1">/100</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Abnormal Values & Actions -->
+<div class="col-span-12 lg:col-span-7 space-y-10">
+<!-- Abnormal Values Grid -->
+<section>
+<div class="flex items-center justify-between mb-6 px-2">
+<h2 class="text-xl font-bold">Prioritized Abnormalities</h2>
+<span class="text-xs bg-error-container text-on-error-container px-3 py-1 rounded-full font-bold">3 Urgent Alerts</span>
+</div>
+<div class="space-y-4">
+<!-- High Priority Row -->
+<div class="group bg-surface-container-lowest hover:bg-white p-6 rounded-[1.5rem] flex items-center transition-all shadow-sm border border-transparent hover:border-error/20">
+<div class="w-2 h-12 bg-error rounded-full mr-6"></div>
+<div class="flex-1">
+<h4 class="text-xs font-bold text-error uppercase tracking-widest mb-1">Critical Deviation</h4>
+<p class="text-lg font-bold">Serum Ferritin</p>
+<p class="text-sm text-on-surface-variant">Potential iron deficiency anemia indicator</p>
+</div>
+<div class="text-right px-8 border-x border-outline-variant/20">
+<p class="text-2xl font-black text-on-surface">12 <span class="text-sm font-medium">ng/mL</span></p>
+<p class="text-xs text-error font-bold">↓ 85% from norm</p>
+</div>
+<div class="pl-8">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors cursor-pointer" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Medium Priority Row -->
+<div class="group bg-surface-container-lowest hover:bg-white p-6 rounded-[1.5rem] flex items-center transition-all shadow-sm border border-transparent hover:border-primary/20">
+<div class="w-2 h-12 bg-primary-container rounded-full mr-6"></div>
+<div class="flex-1">
+<h4 class="text-xs font-bold text-primary uppercase tracking-widest mb-1">Moderate Alert</h4>
+<p class="text-lg font-bold">C-Reactive Protein (CRP)</p>
+<p class="text-sm text-on-surface-variant">Elevated marker, suggests residual inflammation</p>
+</div>
+<div class="text-right px-8 border-x border-outline-variant/20">
+<p class="text-2xl font-black text-on-surface">8.4 <span class="text-sm font-medium">mg/L</span></p>
+<p class="text-xs text-primary font-bold">↑ 24% over ref</p>
+</div>
+<div class="pl-8">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors cursor-pointer" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Trending Row -->
+<div class="group bg-surface-container-lowest hover:bg-white p-6 rounded-[1.5rem] flex items-center transition-all shadow-sm border border-transparent hover:border-secondary/20">
+<div class="w-2 h-12 bg-secondary rounded-full mr-6"></div>
+<div class="flex-1">
+<h4 class="text-xs font-bold text-secondary uppercase tracking-widest mb-1">Watching</h4>
+<p class="text-lg font-bold">Hemoglobin (Hb)</p>
+<p class="text-sm text-on-surface-variant">Recovering trend, monitor for next 24 hours</p>
+</div>
+<div class="text-right px-8 border-x border-outline-variant/20">
+<p class="text-2xl font-black text-on-surface">11.2 <span class="text-sm font-medium">g/dL</span></p>
+<p class="text-xs text-secondary font-bold">↑ Trending Up</p>
+</div>
+<div class="pl-8">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors cursor-pointer" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Suggested Actions (Bento Style) -->
+<section>
+<h2 class="text-xl font-bold mb-6 px-2">AI-Driven Suggested Actions</h2>
+<div class="grid grid-cols-2 gap-6">
+<!-- Action 1 -->
+<div class="bg-surface-container-high/50 p-6 rounded-[2rem] flex flex-col items-start hover:bg-primary-fixed transition-colors cursor-pointer group">
+<div class="p-3 bg-white rounded-2xl mb-6 shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="pill">pill</span>
+</div>
+<h3 class="text-lg font-bold mb-2">Adjust Iron Supplementation</h3>
+<p class="text-sm text-on-surface-variant mb-6">Increase dosage to 65mg elemental iron daily. Review after 7 days.</p>
+<button class="mt-auto text-sm font-bold text-primary group-hover:underline flex items-center space-x-1">
+<span>Prescribe Now</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Action 2 -->
+<div class="bg-surface-container-high/50 p-6 rounded-[2rem] flex flex-col items-start hover:bg-secondary-container transition-colors cursor-pointer group">
+<div class="p-3 bg-white rounded-2xl mb-6 shadow-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="event_repeat">event_repeat</span>
+</div>
+<h3 class="text-lg font-bold mb-2">Follow-up Lab Work</h3>
+<p class="text-sm text-on-surface-variant mb-6">Schedule repeat CBC and Iron Panel for 10/14/2023.</p>
+<button class="mt-auto text-sm font-bold text-secondary group-hover:underline flex items-center space-x-1">
+<span>Schedule Visit</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Action 3 (Wide with Image/Graphic) -->
+<div class="col-span-2 bg-gradient-to-br from-primary to-primary-container p-8 rounded-[2rem] text-white flex items-center justify-between overflow-hidden relative">
+<div class="z-10 max-w-md">
+<h3 class="text-2xl font-bold mb-2">Nutrition Plan Generation</h3>
+<p class="text-on-primary-container mb-6">Create a bio-available iron-rich nutrition guide tailored to patient dietary restrictions.</p>
+<button class="bg-white text-primary px-8 py-3 rounded-full font-bold text-sm shadow-xl">Generate Patient Guide</button>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-[12rem]" data-icon="restaurant" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Quick Actions -->
+<div class="fixed bottom-8 right-8 flex flex-col items-end space-y-4">
+<div class="bg-white shadow-2xl rounded-2xl p-4 flex flex-col items-center border border-outline-variant/10 space-y-4">
+<button class="p-3 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+</button>
+<button class="p-3 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-10 h-[1px] bg-slate-100"></div>
+<button class="p-4 bg-primary text-white rounded-full shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="add" style="font-variation-settings: 'wght' 600;">add</span>
+</button>
+</div>
+</div>
+</body></html>
