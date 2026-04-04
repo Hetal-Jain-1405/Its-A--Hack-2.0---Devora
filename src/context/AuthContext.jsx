@@ -20,7 +20,13 @@ export function AuthProvider({ children }) {
     auth.setToken(d.access_token); localStorage.setItem('cf_user', JSON.stringify(d.user));
     setUser(d.user); setIsAuth(true); return d;
   };
-  const logout = () => { auth.clearToken(); localStorage.removeItem('cf_user'); setUser(null); setIsAuth(false); };
+  const logout = () => {
+    auth.clearToken();
+    localStorage.removeItem('cf_user');
+    localStorage.removeItem('cf_patient_id');
+    setUser(null);
+    setIsAuth(false);
+  };
   return (<AuthContext.Provider value={{ user, isAuth, loading, login, register, logout }}>{children}</AuthContext.Provider>);
 }
 export function useAuth() { const c = useContext(AuthContext); if (!c) throw new Error('useAuth requires AuthProvider'); return c; }

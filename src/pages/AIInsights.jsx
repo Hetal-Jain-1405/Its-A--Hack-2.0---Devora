@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import toast from "react-hot-toast";
 import { useAuth } from '../context/AuthContext';
+import { usePatient } from '../context/PatientContext';
 import { patients, actions as actionsApi } from '../services/api';
 
 export default function AIInsights() {
   const { user } = useAuth();
-  const patientId = user?.id;
+  const { patientId } = usePatient();
 
   const [insights, setInsights] = useState([]);
   const [conditions, setConditions] = useState([]);
@@ -14,7 +15,12 @@ export default function AIInsights() {
   const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
-    if (!patientId) return;
+    if (!patientId) {
+      setInsights([]);
+      setConditions([]);
+      setLoading(false);
+      return;
+    }
     loadData();
   }, [patientId]);
 
@@ -53,7 +59,7 @@ export default function AIInsights() {
     if (!patientId) return;
     setExporting(true);
     try {
-      const result = await patients.exportReport(patientId);
+      await patients.exportReport(patientId);
       toast.success('Report exported! Download ready.');
     } catch (err) {
       toast.error('Export failed: ' + (err.message || 'Unknown error'));

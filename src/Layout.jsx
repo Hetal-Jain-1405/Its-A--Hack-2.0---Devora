@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from './context/AuthContext';
+import { usePatient } from './context/PatientContext';
 import { search, analytics } from './services/api';
 
 const navItems = [
@@ -23,6 +24,7 @@ export default function Layout() {
   const [diagData, setDiagData] = useState(null);
   const searchRef = useRef(null);
   const { user, isAuth, loading, logout } = useAuth();
+  const { setPatientId } = usePatient();
   const nav = useNavigate();
 
   // Auth guard
@@ -139,7 +141,16 @@ export default function Layout() {
                   <div className="space-y-1">
                     <p className="px-3 py-1 text-[10px] font-bold tracking-widest text-slate-400 uppercase">{searchResults.total} result{searchResults.total !== 1 ? 's' : ''}</p>
                     {searchResults.results.map((r) => (
-                      <div key={r.id} onClick={() => { setShowResults(false); setSearchQuery(''); }} className="flex items-center gap-3 rounded-xl p-3 cursor-pointer hover:bg-surface-container-low transition-colors">
+                      <div
+                        key={r.id}
+                        onClick={() => {
+                          if (r.type === 'patient') setPatientId(r.id);
+                          setShowResults(false);
+                          setSearchQuery('');
+                          if (r.type === 'patient') toast.success('Active patient updated', { icon: '👤' });
+                        }}
+                        className="flex items-center gap-3 rounded-xl p-3 cursor-pointer hover:bg-surface-container-low transition-colors"
+                      >
                         <div className={`flex h-9 w-9 items-center justify-center rounded-lg ${r.type === 'alert' ? 'bg-error/10 text-error' : r.type === 'patient' ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
                           <span className="material-symbols-outlined text-sm">{r.type === 'alert' ? 'warning' : r.type === 'patient' ? 'person' : 'article'}</span>
                         </div>

@@ -13,14 +13,40 @@ const gt = () => localStorage.getItem('cf_t');
 const st = (t) => localStorage.setItem('cf_t', t);
 const ct = () => localStorage.removeItem('cf_t');
 
+function formatDetail(er) {
+  const d = er?.detail;
+  if (typeof d === 'string') return d;
+  if (Array.isArray(d)) return d.map((x) => x.msg || JSON.stringify(x)).join('; ');
+  return '';
+}
+
+async function parseJsonResponse(res) {
+  const text = await res.text();
+  if (!text) return {};
+  try {
+    return JSON.parse(text);
+  } catch {
+    return {};
+  }
+}
+
 async function r(e, o = {}) {
   const h = { ...(o.headers || {}) };
   if (!(o.body instanceof FormData)) h['Content-Type'] = 'application/json';
-  const t = gt(); if (t) h['Authorization'] = `Bearer ${t}`;
+  const t = gt();
+  if (t) h['Authorization'] = `Bearer ${t}`;
+  const hadAuth = Boolean(t);
   const res = await fetch(`${B}${e}`, { ...o, headers: h });
-  if (res.status === 401) { ct(); window.location.href = '/login'; return; }
-  if (!res.ok) { const er = await res.json().catch(() => ({})); throw new Error(er.detail || `HTTP ${res.status}`); }
-  return res.json();
+  if (res.status === 401 && hadAuth) {
+    ct();
+    window.location.href = '/login';
+    throw new Error('Session expired. Please sign in again.');
+  }
+  if (!res.ok) {
+    const er = await parseJsonResponse(res);
+    throw new Error(formatDetail(er) || `HTTP ${res.status}`);
+  }
+  return parseJsonResponse(res);
 }
 
 // ── Auth ─────────────────────────────────────────────────────────────────
@@ -150,5 +176,10 @@ export const analytics = {
 // ── Health Check (no auth) ───────────────────────────────────────────────
 export const health = {
   // GET /health
-  check: () => fetch(`${API_ORIGIN}/health`).then((res) => res.json()),
+  check: async () => {
+    const res = await fetch(`${API_ORIGIN}/health`);
+    const data = await parseJsonResponse(res);
+    if (!res.ok) throw new Error(formatDetail(data) || `HTTP ${res.status}`);
+    return data;
+  },
 };

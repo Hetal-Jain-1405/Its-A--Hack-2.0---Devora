@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
-import { caregivers, settings } from '../services/api';
+import { caregivers, settings, user as userApi } from '../services/api';
+import { usePatient } from '../context/PatientContext';
 
 export default function Family() {
-  const { user } = useAuth();
-  const patientId = user?.id;
+  const { patientId } = usePatient();
 
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +17,15 @@ export default function Family() {
   const [inviting, setInviting] = useState(false);
 
   useEffect(() => {
-    if (!patientId) return;
+    userApi.getSecurity().then((s) => setEmergencyBypass(!!s.emergency_access_enabled)).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!patientId) {
+      setMembers([]);
+      setLoading(false);
+      return;
+    }
     loadCaregivers();
   }, [patientId]);
 

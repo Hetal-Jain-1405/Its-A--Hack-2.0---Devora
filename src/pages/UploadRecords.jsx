@@ -1,11 +1,10 @@
 import { useState, useRef } from 'react';
 import toast from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
+import { usePatient } from '../context/PatientContext';
 import { records, patients } from '../services/api';
 
 export default function UploadRecords() {
-  const { user } = useAuth();
-  const patientId = user?.id;
+  const { patientId } = usePatient();
   const fileInputRef = useRef(null);
 
   const [uploadedDocs, setUploadedDocs] = useState([]);
@@ -28,10 +27,12 @@ export default function UploadRecords() {
     setUploadProgress(10);
 
     try {
+      let lastBatchId = null;
       for (let i = 0; i < e.target.files.length; i++) {
         const file = e.target.files[i];
         setUploadProgress(Math.round(((i + 0.5) / e.target.files.length) * 80));
         const result = await records.upload(patientId, file);
+        lastBatchId = result.batch_id ?? lastBatchId;
         setBatchId(result.batch_id);
         setBatchStatus(result.status);
         setUploadedDocs(prev => [...prev, ...(result.documents || [])]);
@@ -39,8 +40,7 @@ export default function UploadRecords() {
       setUploadProgress(100);
       toast.success(`${e.target.files.length} file(s) uploaded successfully!`);
 
-      // Poll batch status
-      if (batchId) pollBatchStatus(batchId);
+      if (lastBatchId) void pollBatchStatus(lastBatchId);
     } catch (err) {
       toast.error('Upload failed: ' + (err.message || 'Unknown error'));
     } finally {
@@ -93,16 +93,19 @@ export default function UploadRecords() {
     setUploading(true);
     setUploadProgress(10);
     try {
+      let lastBatchId = null;
       for (let i = 0; i < e.dataTransfer.files.length; i++) {
         const file = e.dataTransfer.files[i];
         setUploadProgress(Math.round(((i + 0.5) / e.dataTransfer.files.length) * 80));
         const result = await records.upload(patientId, file);
+        lastBatchId = result.batch_id ?? lastBatchId;
         setBatchId(result.batch_id);
         setBatchStatus(result.status);
         setUploadedDocs(prev => [...prev, ...(result.documents || [])]);
       }
       setUploadProgress(100);
       toast.success(`${e.dataTransfer.files.length} file(s) uploaded!`);
+      if (lastBatchId) void pollBatchStatus(lastBatchId);
     } catch (err) {
       toast.error('Upload failed: ' + (err.message || 'Unknown error'));
     } finally {

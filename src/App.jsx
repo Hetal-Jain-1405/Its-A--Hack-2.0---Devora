@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext";
+import { PatientProvider } from "./context/PatientContext";
 import Layout from "./Layout";
 import Dashboard from "./pages/Dashboard";
 import AIInsights from "./pages/AIInsights";
@@ -15,22 +16,24 @@ import Login from "./pages/Login";
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Toaster position="bottom-right" toastOptions={{ className: 'font-sans' }} />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="insights" element={<AIInsights />} />
-            <Route path="actions" element={<DailyActions />} />
-            <Route path="upload" element={<UploadRecords />} />
-            <Route path="timeline" element={<Timeline />} />
-            <Route path="alerts" element={<Alerts />} />
-            <Route path="family" element={<Family />} />
-            <Route path="profile" element={<Profile />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <PatientProvider>
+        <BrowserRouter>
+          <Toaster position="bottom-right" toastOptions={{ className: 'font-sans' }} />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="insights" element={<AIInsights />} />
+              <Route path="actions" element={<DailyActions />} />
+              <Route path="upload" element={<UploadRecords />} />
+              <Route path="timeline" element={<Timeline />} />
+              <Route path="alerts" element={<Alerts />} />
+              <Route path="family" element={<Family />} />
+              <Route path="profile" element={<Profile />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </PatientProvider>
     </AuthProvider>
   );
 }

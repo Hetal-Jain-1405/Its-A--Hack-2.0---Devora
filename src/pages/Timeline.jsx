@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
+import { usePatient } from '../context/PatientContext';
 import { patients } from '../services/api';
 
 const statusConfig = {
@@ -11,13 +11,16 @@ const statusConfig = {
 };
 
 export default function Timeline() {
-  const { user } = useAuth();
-  const patientId = user?.id;
+  const { patientId } = usePatient();
   const [milestones, setMilestones] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!patientId) return;
+    if (!patientId) {
+      setMilestones([]);
+      setLoading(false);
+      return;
+    }
     loadTimeline();
   }, [patientId]);
 

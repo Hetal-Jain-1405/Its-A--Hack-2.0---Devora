@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
 import { tasks, analytics } from '../services/api';
 
 const filterMap = { 'Today': 'today', 'Upcoming': 'upcoming', 'Missed': 'missed' };
 
 export default function DailyActions() {
-  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('Today');
   const [taskList, setTaskList] = useState([]);
   const [loading, setLoading] = useState(true);

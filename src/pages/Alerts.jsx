@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
 import { alerts as alertsApi, actions as actionsApi } from '../services/api';
+import { usePatient } from '../context/PatientContext';
 
 const typeConfig = {
   critical: {
@@ -35,7 +35,7 @@ const categoryIcons = {
 };
 
 export default function Alerts() {
-  const { user } = useAuth();
+  const { patientId } = usePatient();
   const [alertsList, setAlertsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('all');
@@ -82,7 +82,7 @@ export default function Alerts() {
   const handleRefill = async (alert) => {
     try {
       await actionsApi.refill({
-        patient_id: alert.patient_id || user?.id,
+        patient_id: alert.patient_id || patientId,
         medication: alert.title || 'Medication',
         notes: alert.message,
       });
