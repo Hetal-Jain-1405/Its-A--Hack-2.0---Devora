@@ -1,7 +1,14 @@
 // CareFlow AI — API Service Layer
-// Base: http://127.0.0.1:8000/v1
+//
+// Development: use same-origin `/v1` so Vite proxies to the backend (avoids CORS when the app
+// is opened as http://localhost:5173 while the API is http://127.0.0.1:8000).
+// Production: set VITE_API_ORIGIN (no trailing slash), e.g. https://api.example.com
 
-const B = 'http://127.0.0.1:8000/v1';
+const API_ORIGIN = (
+  import.meta.env.VITE_API_ORIGIN ??
+  (import.meta.env.DEV ? '' : 'http://127.0.0.1:8000')
+).replace(/\/$/, '');
+const B = `${API_ORIGIN}/v1`;
 const gt = () => localStorage.getItem('cf_t');
 const st = (t) => localStorage.setItem('cf_t', t);
 const ct = () => localStorage.removeItem('cf_t');
@@ -143,5 +150,5 @@ export const analytics = {
 // ── Health Check (no auth) ───────────────────────────────────────────────
 export const health = {
   // GET /health
-  check: () => fetch('http://127.0.0.1:8000/health').then(res => res.json()),
+  check: () => fetch(`${API_ORIGIN}/health`).then((res) => res.json()),
 };

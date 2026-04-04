@@ -1,61 +1,222 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-
-const accessLogs = [
-  {
-    id: 1,
-    device: 'iPhone 15 Pro',
-    context: 'Mobile App • San Francisco, CA',
-    time: 'Today, 14:42',
-    status: 'SUCCESSFUL',
-  },
-  {
-    id: 2,
-    device: 'MacBook Pro',
-    context: 'Chrome Browser • San Francisco, CA',
-    time: 'Oct 24, 09:15',
-    status: 'SUCCESSFUL',
-  },
-  {
-    id: 3,
-    device: 'Unknown Device',
-    context: 'Firefox • Denver, CO',
-    time: 'Oct 22, 03:11',
-    status: 'BLOCKED',
-  },
-];
+import { useAuth } from '../context/AuthContext';
+import { user as userApi } from '../services/api';
 
 export default function Profile() {
-  const [twoFactor, setTwoFactor] = useState(true);
+  const { user } = useAuth();
+  const [profile, setProfile] = useState(null);
+  const [sessions, setSessions] = useState([]);
+  const [security, setSecurity] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleToggle2FA = () => {
-    setTwoFactor(!twoFactor);
-    toast.success(!twoFactor ? 'Two-Factor Authentication enabled.' : 'Two-Factor Authentication disabled.', {
-      icon: !twoFactor ? '🔒' : '🔓',
-    });
+  // Change Password modal state
+  const [showPwModal, setShowPwModal] = useState(false);
+  const [currentPw, setCurrentPw] = useState('');
+  const [newPw, setNewPw] = useState('');
+  const [changingPw, setChangingPw] = useState(false);
+
+  // Edit profile modal state
+  const [showEditProfile, setShowEditProfile] = useState(false);
+  const [editData, setEditData] = useState({});
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    loadAllProfileData();
+  }, []);
+
+  const loadAllProfileData = async () => {
+    setLoading(true);
+    try {
+      const [profileData, sessionsData, securityData] = await Promise.allSettled([
+        userApi.getProfile(),
+        userApi.getSessions(),
+        userApi.getSecurity(),
+      ]);
+      if (profileData.status === 'fulfilled') {
+        setProfile(profileData.value);
+        setEditData({
+          blood_type: profileData.value.blood_type || '',
+          allergies: (profileData.value.allergies || []).join(', '),
+          chronic_conditions: (profileData.value.chronic_conditions || []).join(', '),
+          emergency_contact_name: profileData.value.emergency_contact_name || '',
+          emergency_contact_phone: profileData.value.emergency_contact_phone || '',
+        });
+      }
+      if (sessionsData.status === 'fulfilled') setSessions(Array.isArray(sessionsData.value) ? sessionsData.value : []);
+      if (securityData.status === 'fulfilled') setSecurity(securityData.value);
+    } catch (err) {
+      toast.error('Failed to load profile: ' + (err.message || 'Unknown error'));
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const handleToggle2FA = async () => {
+    if (!security) return;
+    const newVal = !security.two_factor_enabled;
+    try {
+      const result = await userApi.updateSecurity({ two_factor_enabled: newVal });
+      setSecurity(result);
+      toast.success(newVal ? 'Two-Factor Authentication enabled.' : 'Two-Factor Authentication disabled.', {
+        icon: newVal ? '🔒' : '🔓',
+      });
+    } catch (err) {
+      toast.error('Failed to update 2FA: ' + (err.message || 'Unknown error'));
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!currentPw || !newPw) return toast.error('Please fill in both fields.');
+    if (newPw.length < 8) return toast.error('New password must be at least 8 characters.');
+    setChangingPw(true);
+    try {
+      await userApi.changePassword(currentPw, newPw);
+      toast.success('Password changed successfully!');
+      setShowPwModal(false);
+      setCurrentPw('');
+      setNewPw('');
+    } catch (err) {
+      toast.error('Password change failed: ' + (err.message || 'Incorrect current password'));
+    } finally {
+      setChangingPw(false);
+    }
+  };
+
+  const handleRevokeSessions = async () => {
+    try {
+      const result = await userApi.revokeSessions();
+      toast.success(result.message || 'All sessions revoked!', { icon: '🔐' });
+      // Reload sessions
+      const newSessions = await userApi.getSessions();
+      setSessions(Array.isArray(newSessions) ? newSessions : []);
+    } catch (err) {
+      toast.error('Failed to revoke sessions: ' + (err.message || 'Unknown error'));
+    }
+  };
+
+  const handleSaveProfile = async () => {
+    setSaving(true);
+    try {
+      const payload = {
+        blood_type: editData.blood_type || undefined,
+        allergies: editData.allergies ? editData.allergies.split(',').map(s => s.trim()).filter(Boolean) : [],
+        chronic_conditions: editData.chronic_conditions ? editData.chronic_conditions.split(',').map(s => s.trim()).filter(Boolean) : [],
+        emergency_contact_name: editData.emergency_contact_name || undefined,
+        emergency_contact_phone: editData.emergency_contact_phone || undefined,
+      };
+      const result = await userApi.updateProfile(payload);
+      setProfile(result);
+      setShowEditProfile(false);
+      toast.success('Profile updated successfully!');
+    } catch (err) {
+      toast.error('Failed to update profile: ' + (err.message || 'Unknown error'));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const getDeviceIcon = (device) => {
+    if (!device) return 'devices_other';
+    const d = device.toLowerCase();
+    if (d.includes('iphone') || d.includes('mobile') || d.includes('android')) return 'phone_iphone';
+    if (d.includes('mac') || d.includes('laptop') || d.includes('windows')) return 'laptop_mac';
+    return 'devices_other';
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-40">
+        <span className="material-symbols-outlined animate-spin text-4xl text-primary">progress_activity</span>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-4xl p-10 pb-32 pt-12">
       {/* Header Card */}
       <section className="mb-10 flex items-center gap-8 rounded-2xl bg-gradient-to-r from-primary to-primary-container p-8 text-white shadow-lg">
-        <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_Srtjr_03bIKw2LKbZYE76s_0JOPkm1OWPXwegzhfoucnD0F7Ddum_9SpNjll8pwTKb3Y2ZE-5Nx1q1Dr19WSrdSkOs8IQAfrKXvdGZZgJ3f5x9Oh9pugDe_TXoA-Ba1gV5dW_TDmy_WoXx2lQ5Vhz2bNS3tugsl05T3Ffn953VEVP9bJkmH6Hfv7xNzHmFXOKMr5nL0GxiqCZO5EuqQVQJZarC5ZBvlev7-nsWzlzChO_63CGQNQQfGyD-LY0Qpcc-ZGG5QZaQ"
-          alt="Dr. Aris Thorne"
-          className="h-20 w-20 rounded-full object-cover ring-4 ring-white/30"
-        />
+        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/20 ring-4 ring-white/30">
+          <span className="material-symbols-outlined text-4xl">person</span>
+        </div>
         <div>
           <span className="text-xs font-bold tracking-widest uppercase opacity-80">Member Profile</span>
-          <h1 className="text-3xl font-extrabold">Dr. Aris Thorne</h1>
-          <p className="mt-1 text-sm opacity-80">Hematology · Board Certified · ID #4829-X</p>
+          <h1 className="text-3xl font-extrabold">{profile?.full_name || user?.full_name || 'User'}</h1>
+          <p className="mt-1 text-sm opacity-80">{profile?.email || user?.email} · {(profile?.role || user?.role || 'user').charAt(0).toUpperCase() + (profile?.role || user?.role || 'user').slice(1)}</p>
         </div>
         <button
-          onClick={() => toast.success('Edit profile modal opened.')}
+          onClick={() => setShowEditProfile(!showEditProfile)}
           className="ml-auto rounded-full bg-white/20 px-5 py-2.5 text-sm font-bold backdrop-blur-sm transition-all hover:bg-white/30"
         >
-          Edit Profile
+          {showEditProfile ? 'Cancel' : 'Edit Profile'}
         </button>
       </section>
+
+      {/* Edit Profile Form */}
+      {showEditProfile && (
+        <section className="mb-10 rounded-xl bg-surface-container-lowest p-6 shadow-[0_4px_16px_rgba(25,28,29,0.04)]">
+          <h2 className="mb-6 text-lg font-bold">Edit Medical Information</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="mb-1.5 block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Blood Type</label>
+              <input
+                type="text"
+                value={editData.blood_type}
+                onChange={e => setEditData(d => ({ ...d, blood_type: e.target.value }))}
+                placeholder="O+, A-, B+..."
+                className="w-full rounded-xl border-none bg-surface-container-low px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Allergies (comma-separated)</label>
+              <input
+                type="text"
+                value={editData.allergies}
+                onChange={e => setEditData(d => ({ ...d, allergies: e.target.value }))}
+                placeholder="Penicillin, Peanuts..."
+                className="w-full rounded-xl border-none bg-surface-container-low px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Chronic Conditions (comma-separated)</label>
+              <input
+                type="text"
+                value={editData.chronic_conditions}
+                onChange={e => setEditData(d => ({ ...d, chronic_conditions: e.target.value }))}
+                placeholder="Hypertension, Diabetes..."
+                className="w-full rounded-xl border-none bg-surface-container-low px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Emergency Contact Name</label>
+              <input
+                type="text"
+                value={editData.emergency_contact_name}
+                onChange={e => setEditData(d => ({ ...d, emergency_contact_name: e.target.value }))}
+                placeholder="Jane Doe"
+                className="w-full rounded-xl border-none bg-surface-container-low px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Emergency Contact Phone</label>
+              <input
+                type="text"
+                value={editData.emergency_contact_phone}
+                onChange={e => setEditData(d => ({ ...d, emergency_contact_phone: e.target.value }))}
+                placeholder="+1-555-0123"
+                className="w-full rounded-xl border-none bg-surface-container-low px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+          </div>
+          <button
+            onClick={handleSaveProfile}
+            disabled={saving}
+            className="mt-6 rounded-full bg-primary px-8 py-3 text-sm font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
+          >
+            {saving ? 'Saving...' : 'Save Changes'}
+          </button>
+        </section>
+      )}
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Medical Info */}
@@ -66,19 +227,25 @@ export default function Profile() {
           <div className="space-y-4">
             <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
               <span className="text-sm text-on-surface-variant">Blood Type</span>
-              <span className="font-bold text-on-surface">O+</span>
+              <span className="font-bold text-on-surface">{profile?.blood_type || 'Not set'}</span>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
               <span className="text-sm text-on-surface-variant">Allergies</span>
-              <span className="font-bold text-error">Penicillin</span>
+              <span className="font-bold text-error">
+                {profile?.allergies && profile.allergies.length > 0 ? profile.allergies.join(', ') : 'None'}
+              </span>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
-              <span className="text-sm text-on-surface-variant">Primary Physician</span>
-              <span className="font-bold text-on-surface">Dr. R. Vasquez</span>
+              <span className="text-sm text-on-surface-variant">Chronic Conditions</span>
+              <span className="font-bold text-on-surface">
+                {profile?.chronic_conditions && profile.chronic_conditions.length > 0 ? profile.chronic_conditions.join(', ') : 'None'}
+              </span>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
-              <span className="text-sm text-on-surface-variant">Insurance</span>
-              <span className="font-bold text-on-surface">MedShield Gold</span>
+              <span className="text-sm text-on-surface-variant">Emergency Contact</span>
+              <span className="font-bold text-on-surface">
+                {profile?.emergency_contact_name || 'Not set'}{profile?.emergency_contact_phone ? ` (${profile.emergency_contact_phone})` : ''}
+              </span>
             </div>
           </div>
         </section>
@@ -100,56 +267,65 @@ export default function Profile() {
               <span className="material-symbols-outlined text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
-              <span className="text-sm text-on-surface-variant">Last Login</span>
-              <span className="font-bold text-on-surface">2 hrs ago</span>
-            </div>
-            <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
               <span className="text-sm text-on-surface-variant">Active Devices</span>
-              <span className="font-bold text-primary">2 Devices</span>
+              <span className="font-bold text-primary">{sessions.length} Device{sessions.length !== 1 ? 's' : ''}</span>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
               <div>
                 <span className="text-sm font-semibold text-on-surface">Two-Factor Auth</span>
-                <p className="text-xs text-on-surface-variant">{twoFactor ? 'Enabled' : 'Disabled'}</p>
+                <p className="text-xs text-on-surface-variant">{security?.two_factor_enabled ? 'Enabled' : 'Disabled'}</p>
               </div>
               <button
                 onClick={handleToggle2FA}
-                className={`relative h-7 w-12 rounded-full transition-colors duration-300 ${twoFactor ? 'bg-primary' : 'bg-outline-variant/30'}`}
+                className={`relative h-7 w-12 rounded-full transition-colors duration-300 ${security?.two_factor_enabled ? 'bg-primary' : 'bg-outline-variant/30'}`}
               >
-                <span className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow-md transition-all duration-300 ${twoFactor ? 'left-5.5' : 'left-0.5'}`}></span>
+                <span className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow-md transition-all duration-300 ${security?.two_factor_enabled ? 'left-5.5' : 'left-0.5'}`}></span>
               </button>
+            </div>
+            <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
+              <span className="text-sm text-on-surface-variant">Emergency Access</span>
+              <span className={`font-bold ${security?.emergency_access_enabled ? 'text-error' : 'text-on-surface-variant'}`}>
+                {security?.emergency_access_enabled ? 'Enabled' : 'Disabled'}
+              </span>
             </div>
           </div>
         </section>
       </div>
 
-      {/* Access Logs */}
+      {/* Access Logs / Sessions */}
       <section className="mt-8 rounded-xl bg-surface-container-lowest p-6 shadow-[0_4px_16px_rgba(25,28,29,0.04)]">
         <h2 className="mb-6 flex items-center gap-2 text-sm font-bold tracking-widest text-on-surface-variant uppercase">
-          <span className="material-symbols-outlined text-sm">history</span> Access Logs
+          <span className="material-symbols-outlined text-sm">history</span> Active Sessions
         </h2>
         <div className="space-y-3">
-          {accessLogs.map((log) => (
-            <div key={log.id} className="flex items-center justify-between rounded-lg bg-surface-container-low p-4 transition-colors hover:bg-surface-container-high">
-              <div className="flex items-center gap-4">
-                <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${log.status === 'BLOCKED' ? 'bg-error/10' : 'bg-primary/10'}`}>
-                  <span className={`material-symbols-outlined text-lg ${log.status === 'BLOCKED' ? 'text-error' : 'text-primary'}`}>
-                    {log.device.includes('iPhone') ? 'phone_iphone' : log.device.includes('Mac') ? 'laptop_mac' : 'devices_other'}
+          {sessions.length === 0 ? (
+            <p className="text-sm text-on-surface-variant text-center py-6">No active sessions found.</p>
+          ) : (
+            sessions.map((session) => (
+              <div key={session.id} className="flex items-center justify-between rounded-lg bg-surface-container-low p-4 transition-colors hover:bg-surface-container-high">
+                <div className="flex items-center gap-4">
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${session.is_current ? 'bg-primary/10' : 'bg-surface-container-high'}`}>
+                    <span className={`material-symbols-outlined text-lg ${session.is_current ? 'text-primary' : 'text-on-surface-variant'}`}>
+                      {getDeviceIcon(session.device)}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-on-surface">
+                      {session.device}
+                      {session.is_current && <span className="ml-2 text-xs font-bold text-primary">(Current)</span>}
+                    </span>
+                    <p className="text-xs text-on-surface-variant">{session.location} · {session.ip_address}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs text-on-surface-variant">
+                    {new Date(session.last_active).toLocaleString()}
                   </span>
-                </div>
-                <div>
-                  <span className="text-sm font-bold text-on-surface">{log.device}</span>
-                  <p className="text-xs text-on-surface-variant">{log.context}</p>
+                  <p className="text-[10px] font-bold tracking-wider uppercase text-tertiary">ACTIVE</p>
                 </div>
               </div>
-              <div className="text-right">
-                <span className="text-xs text-on-surface-variant">{log.time}</span>
-                <p className={`text-[10px] font-bold tracking-wider uppercase ${log.status === 'BLOCKED' ? 'text-error' : 'text-tertiary'}`}>
-                  {log.status}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </section>
 
@@ -159,24 +335,55 @@ export default function Profile() {
         <p className="mb-6 text-sm text-on-surface-variant">Managing your security credentials and connected platforms.</p>
         <div className="flex flex-wrap gap-3">
           <button
-            onClick={() => toast.success('Password change email sent.')}
+            onClick={() => setShowPwModal(!showPwModal)}
             className="rounded-full bg-primary/10 px-5 py-2.5 text-xs font-bold text-primary transition-all hover:bg-primary/20"
           >
             Change Password
           </button>
           <button
-            onClick={() => toast.success('All other sessions terminated.', { icon: '🔐' })}
+            onClick={handleRevokeSessions}
             className="rounded-full bg-error/10 px-5 py-2.5 text-xs font-bold text-error transition-all hover:bg-error/20"
           >
             Log Out All Devices
           </button>
-          <button
-            onClick={() => toast.success('Connected apps view opened.')}
-            className="rounded-full bg-surface-container-high px-5 py-2.5 text-xs font-bold text-on-surface-variant transition-all hover:bg-surface-container-highest"
-          >
-            Connected Apps
-          </button>
         </div>
+
+        {/* Change Password Form */}
+        {showPwModal && (
+          <div className="mt-6 rounded-xl bg-surface-container-low p-6">
+            <h3 className="mb-4 text-sm font-bold">Change Password</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="mb-1.5 block text-xs font-bold tracking-widest text-on-surface-variant uppercase">Current Password</label>
+                <input
+                  type="password"
+                  value={currentPw}
+                  onChange={e => setCurrentPw(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full rounded-xl border-none bg-surface-container-lowest px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20"
+                />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs font-bold tracking-widest text-on-surface-variant uppercase">New Password</label>
+                <input
+                  type="password"
+                  value={newPw}
+                  onChange={e => setNewPw(e.target.value)}
+                  placeholder="••••••••"
+                  minLength={8}
+                  className="w-full rounded-xl border-none bg-surface-container-lowest px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20"
+                />
+              </div>
+              <button
+                onClick={handleChangePassword}
+                disabled={changingPw}
+                className="rounded-full bg-primary px-6 py-3 text-sm font-bold text-white transition-all hover:opacity-90 disabled:opacity-50"
+              >
+                {changingPw ? 'Changing...' : 'Update Password'}
+              </button>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );
